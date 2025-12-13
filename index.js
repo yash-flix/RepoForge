@@ -17,6 +17,7 @@ import {commitRepo} from "./controllers/commit.js"
 import {pushRepo} from "./controllers/push.js"
 import {pullRepo} from "./controllers/pull.js"
 import {revertRepo} from "./controllers/revert.js"
+import mainRouter from "./routes/main.router.js";
 
 
 yagrs(hideBin(process.argv))
@@ -49,10 +50,9 @@ function startServer(){
     mongoose.connect(mongoURI).then(()=>console.log("MONGODB CONNECTED!")).catch((err)=>console.error("Unable to connect : " , err))
 
     app.use(cors({origin: "*"}));
-    app.get("/" , (req,res)=>
-    {
-        res.send("Welcome");
-    });
+
+    app.use("/" , mainRouter)
+
 
     let user = "test"
 
